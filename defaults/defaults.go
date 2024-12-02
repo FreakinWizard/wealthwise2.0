@@ -96,6 +96,7 @@ func Defaults(db *sql.DB) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func CreateTable(db *sql.DB) {
@@ -127,5 +128,18 @@ func CreateCardTable(db *sql.DB) {
 	_, err := db.Exec(createTableQuery)
 	if err != nil {
 		log.Fatal("Failed to create table: ", err)
+	}
+}
+
+func CreateImageTable(db *sql.DB) {
+	query :=
+		`CREATE TABLE IF NOT EXISTS images (
+		id SERIAL PRIMARY KEY,
+		image_url TEXT
+	)`
+
+	_, err := db.Exec(query)
+	if err != nil {
+		log.Fatal("Failed to create image table: ", err)
 	}
 }

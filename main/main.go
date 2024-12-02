@@ -55,6 +55,15 @@ func main() {
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		}
 	})
+	http.HandleFunc("/image", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			services.GetImage(w, r)
+		} else if r.Method == http.MethodPost {
+			services.UploadImage(w, r)
+		} else {
+			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		}
+	})
 
 	log.Println("Server starting on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
